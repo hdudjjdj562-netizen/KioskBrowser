@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    activity_main.xml
+    Enterprise Kiosk Browser — main layout
+
+    FrameLayout chosen deliberately:
+      • WebView fills the entire screen (kiosk requirement)
+      • ProgressBar floats on top, zero impact on WebView measurements
+      • No ActionBar / Toolbar — handled by Theme.NoActionBar in the manifest
+-->
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/black"
+    android:fitsSystemWindows="false">
+
+    <!-- Primary WebView — fills the whole screen -->
+    <WebView
+        android:id="@+id/webView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbarStyle="outsideOverlay"
+        android:scrollbars="vertical|horizontal"
+        android:overScrollMode="never"
+        android:focusable="true"
+        android:focusableInTouchMode="true" />
+
+    <!--
+        Indeterminate ProgressBar that becomes a determinate horizontal bar
+        once onProgressChanged starts reporting.
+
+        style="?android:attr/progressBarStyleHorizontal" gives us setProgress()
+        while keeping the familiar Chrome-style top-of-page loading indicator.
+    -->
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="match_parent"
+        android:layout_height="4dp"
+        android:layout_gravity="top"
+        android:max="100"
+        android:progress="0"
+        android:visibility="gone"
+        android:progressTint="@color/kiosk_accent"
+        android:progressBackgroundTint="@android:color/transparent" />
+
+</FrameLayout>
